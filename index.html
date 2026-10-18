@@ -4,42 +4,159 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SomaFitX | Sitio en Mantenimiento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --bg-dark: #07060D;
+            --bg-card: #0F0D1B;
+            --purple-neon: #A000FF;
+            --purple-glow: rgba(160, 0, 255, 0.4);
+            --blue-neon: #00E5FF;
+            --blue-glow: rgba(0, 229, 255, 0.4);
+            --text-light: #F0F4F8;
+            --text-muted: #A0A5BA;
+            --border-glow: #1A162B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
         body {
-            background-color: #07060D;
-            color: #F0F4F8;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
+            padding: 20px;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 50%, rgba(160, 0, 255, 0.12), transparent 70%),
+                        radial-gradient(circle at 80% 20%, rgba(0, 229, 255, 0.12), transparent 70%);
+        }
+
+        .maintenance-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 45px 30px;
+            max-width: 520px;
+            width: 100%;
             text-align: center;
+            box-shadow: 0 0 35px var(--purple-glow), 0 0 35px var(--blue-glow);
+            position: relative;
         }
-        .container {
-            padding: 40px;
-            border-radius: 16px;
-            background: #0F0D1B;
-            border: 1px solid #1A162B;
-            box-shadow: 0 0 30px rgba(160, 0, 255, 0.2);
-            max-width: 500px;
+
+        .logo-img {
+            max-width: 180px;
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--purple-glow), 0 0 20px var(--blue-glow);
+            border: 2px solid var(--blue-neon);
+            margin-bottom: 25px;
         }
-        h1 {
-            color: #00E5FF;
-            font-size: 2rem;
-            margin-bottom: 10px;
+
+        /* ANIMACIÓN DE ENGRANES GIRATORIOS */
+        .gears-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            position: relative;
+            height: 90px;
         }
-        p {
-            color: #A0A5BA;
-            font-size: 1.1rem;
-            line-height: 1.5;
+
+        .gear {
+            font-size: 3.5rem;
+            position: absolute;
+        }
+
+        .gear-large {
+            color: var(--purple-neon);
+            text-shadow: 0 0 15px var(--purple-glow);
+            left: calc(50% - 45px);
+            top: 5px;
+            animation: spinClockwise 6s linear infinite;
+        }
+
+        .gear-small {
+            color: var(--blue-neon);
+            text-shadow: 0 0 15px var(--blue-glow);
+            font-size: 2.3rem;
+            left: calc(50% + 10px);
+            top: 35px;
+            animation: spinCounterClockwise 4s linear infinite;
+        }
+
+        @keyframes spinClockwise {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes spinCounterClockwise {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+
+        .title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #FFF 30%, var(--blue-neon) 70%, var(--purple-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .message {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .slogan-bar {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--blue-neon);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🛠️ Sitio en Mantenimiento</h1>
-        <p>Estamos realizando mejoras en la tienda <strong>SomaFitX</strong>. Volveremos a estar en línea muy pronto.</p>
+
+    <div class="maintenance-card">
+        <!-- LOGO OFICIAL -->
+        <img src="LOGO-SOMAFITX.jpeg" alt="SomaFitX Logo" class="logo-img" onerror="this.style.display='none'">
+
+        <!-- ANIMACIÓN DE ENGRANES GIRATORIOS -->
+        <div class="gears-container">
+            <i class="fa-solid fa-gear gear gear-large"></i>
+            <i class="fa-solid fa-gear gear gear-small"></i>
+        </div>
+
+        <!-- TEXTO -->
+        <h1 class="title">Sitio en Mantenimiento</h1>
+        <p class="message">
+            Estamos optimizando la plataforma para brindarte la mejor experiencia en ropa deportiva y suplementos.
+            <br><br>
+            ¡Volveremos a estar en línea muy pronto!
+        </p>
+
+        <div class="slogan-bar">
+            <span>FUERZA</span> • <span>DISCIPLINA</span> • <span>RESULTADOS</span>
+        </div>
     </div>
+
 </body>
 </html>

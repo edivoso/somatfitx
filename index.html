@@ -774,4 +774,134 @@
             <button class="close-cart-btn" onclick="toggleCart()">&times;</button>
         </div>
         <div class="cart-items-list" id="cartItemsContainer">
-            <p style="text-align: center; color: var(--text-muted); margin-top: 30px;">Tu carrito
+            <p style="text-align: center; color: var(--text-muted); margin-top: 30px;">Tu carrito está vacío.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0 MXN</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <!-- MODAL DE ZOOM DE IMAGEN -->
+    <div class="image-modal" id="imageModal" onclick="closeModal()">
+        <span class="close-modal-btn">&times;</span>
+        <img id="modalImg" src="" alt="Vista ampliada">
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="contacto">
+        <span class="logo-text">SomaFitX</span>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 15px;">&copy; 2026 SomaFitX. Todos los derechos reservados. Fuerza • Disciplina • Resultados</p>
+    </footer>
+
+    <!-- LÓGICA DE JAVASCRIPT (CARRITO Y MODAL) -->
+    <script>
+        let cart = [];
+
+        function addToCart(title, price, image) {
+            const existingItem = cart.find(item => item.title === title);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ title, price, image, quantity: 1 });
+            }
+            updateCartUI();
+            toggleCart(true);
+        }
+
+        function changeQuantity(title, delta) {
+            const item = cart.find(item => item.title === title);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(i => i.title !== title);
+                }
+            }
+            updateCartUI();
+        }
+
+        function removeFromCart(title) {
+            cart = cart.filter(item => item.title !== title);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cartItemsContainer');
+            const totalEl = document.getElementById('cartTotal');
+            const countEl = document.getElementById('cartCount');
+
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--text-muted); margin-top: 30px;">Tu carrito está vacío.</p>';
+                totalEl.textContent = '$0 MXN';
+                countEl.textContent = '0';
+                return;
+            }
+
+            let total = 0;
+            let totalItems = 0;
+            container.innerHTML = '';
+
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                totalItems += item.quantity;
+
+                const itemEl = document.createElement('div');
+                itemEl.className = 'cart-item';
+                itemEl.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}">
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">${item.title}</div>
+                        <div class="cart-item-price">$${item.price.toLocaleString()} MXN</div>
+                        <div class="cart-item-qty">
+                            <button class="qty-btn" onclick="changeQuantity('${item.title}', -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="qty-btn" onclick="changeQuantity('${item.title}', 1)">+</button>
+                        </div>
+                    </div>
+                    <button class="remove-item-btn" onclick="removeFromCart('${item.title}')"><i class="fa-solid fa-trash"></i></button>
+                `;
+                container.appendChild(itemEl);
+            });
+
+            totalEl.textContent = `$${total.toLocaleString()} MXN`;
+            countEl.textContent = totalItems;
+        }
+
+        function toggleCart(forceOpen = false) {
+            const drawer = document.getElementById('cartDrawer');
+            const overlay = document.getElementById('cartOverlay');
+            if (forceOpen || !drawer.classList.contains('active')) {
+                drawer.classList.add('active');
+                overlay.classList.add('active');
+            } else {
+                drawer.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        }
+
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImg');
+            modalImg.src = imageSrc;
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+        }
+
+        function checkout() {
+            if (cart.length === 0) return alert('El carrito está vacío.');
+            alert('¡Gracias por tu pedido en SomaFitX! Procesando compra...');
+            cart = [];
+            updateCartUI();
+            toggleCart();
+        }
+    </script>
+
+</body>
+</html>

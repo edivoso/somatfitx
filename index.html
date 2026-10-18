@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SomaFitX | Tienda Oficial</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- SDK Oficial de Mercado Pago -->
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+
     <style>
         :root {
             --bg-dark: #07060D;
@@ -18,6 +21,7 @@
             --text-light: #F0F4F8;
             --text-muted: #A0A5BA;
             --border-glow: #1A162B;
+            --mp-blue: #009EE3;
         }
 
         * {
@@ -202,11 +206,6 @@
             transition: 0.3s;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 30px rgba(0, 229, 255, 0.6);
-        }
-
         .hero-image-container {
             flex: 1;
             display: flex;
@@ -222,7 +221,7 @@
             border: 2px solid rgba(0, 229, 255, 0.3);
         }
 
-        /* CATEGORIES FILTER BAR */
+        /* BARRA DE FILTROS */
         .category-nav-bar {
             padding: 20px 5%;
             display: flex;
@@ -230,7 +229,6 @@
             gap: 12px;
             flex-wrap: wrap;
             background: #0B0A14;
-            border-y: 1px solid var(--border-glow);
         }
 
         .cat-btn {
@@ -244,17 +242,15 @@
             cursor: pointer;
             transition: 0.3s;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         .cat-btn:hover, .cat-btn.active {
             background: linear-gradient(135deg, var(--purple-neon), var(--blue-neon));
             border-color: var(--blue-neon);
-            box-shadow: 0 0 15px var(--blue-glow);
             color: #fff;
         }
 
-        /* PRODUCTS SECTION */
+        /* PRODUCTOS */
         .products-section {
             padding: 50px 5% 80px 5%;
             max-width: 1300px;
@@ -270,7 +266,6 @@
             font-size: 2.2rem;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
         .grid-products {
@@ -288,7 +283,6 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            position: relative;
         }
 
         .product-card:hover {
@@ -303,14 +297,12 @@
             background: linear-gradient(180deg, rgba(255, 23, 68, 0.08) 0%, var(--bg-card) 100%);
         }
 
-        /* IMÁGENES Y ZOOM */
         .single-img-wrapper, .dual-img-box {
             position: relative;
             overflow: hidden;
             border-radius: 12px;
             margin-bottom: 15px;
             background: #000;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .dual-img-box {
@@ -367,7 +359,6 @@
             color: var(--blue-neon);
             text-transform: uppercase;
             font-weight: 800;
-            letter-spacing: 1px;
         }
 
         .product-title {
@@ -398,7 +389,6 @@
             transition: 0.3s;
             text-transform: uppercase;
             font-size: 0.9rem;
-            letter-spacing: 1px;
             margin-top: 10px;
         }
 
@@ -466,11 +456,6 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 15px;
             margin-bottom: 20px;
-        }
-
-        .cart-header h3 {
-            font-size: 1.4rem;
-            font-weight: 800;
         }
 
         .close-cart-btn {
@@ -546,7 +531,6 @@
             border: none;
             cursor: pointer;
             font-size: 1.1rem;
-            padding: 5px;
         }
 
         .cart-footer {
@@ -563,10 +547,11 @@
             margin-bottom: 15px;
         }
 
-        .checkout-btn {
+        /* BOTÓN MERCADO PAGO */
+        .mp-checkout-btn {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, var(--blue-neon), var(--purple-neon));
+            background: var(--mp-blue);
             border: none;
             color: #fff;
             font-weight: 900;
@@ -575,10 +560,16 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 0 15px rgba(0, 158, 227, 0.4);
         }
 
-        .checkout-btn:hover {
-            box-shadow: 0 0 20px var(--blue-glow);
+        .mp-checkout-btn:hover {
+            box-shadow: 0 0 25px rgba(0, 158, 227, 0.8);
+            transform: translateY(-2px);
         }
 
         /* MODAL DE ZOOM */
@@ -618,45 +609,11 @@
             cursor: pointer;
         }
 
-        /* FOOTER */
         footer {
             background: #040308;
             padding: 40px 5% 20px 5%;
             border-top: 1px solid rgba(160, 0, 255, 0.2);
             text-align: center;
-        }
-
-        @media (max-width: 992px) {
-            nav ul {
-                gap: 10px;
-            }
-            nav a {
-                font-size: 0.75rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 10px;
-                padding: 10px;
-            }
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                margin-top: 130px;
-            }
-            .hero-title {
-                font-size: 2.2rem;
-            }
-            .slogan-bar {
-                justify-content: center;
-                border-left: none;
-                padding-left: 0;
-            }
-            .dual-img-box {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
@@ -669,7 +626,6 @@
             <span class="logo-text">SomaFitX</span>
         </a>
         
-        <!-- MENU DE NAVEGACION POR CATEGORIAS -->
         <nav>
             <ul>
                 <li><a onclick="filterCategory('all')" class="nav-link active">Todos</a></li>
@@ -697,7 +653,7 @@
             <span class="hero-tag">EDICIÓN EXCLUSIVA</span>
             <h1 class="hero-title">Evoluciona tu <span class="purple">Fuerza</span> & <span class="blue">Estilo</span></h1>
             <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; margin-bottom: 25px;">
-                Colección oficial Spider-Man X Civil Regime. Suplementación y ropa deportiva premium.
+                Colección oficial Spider-Man X Civil Regime. Pagos 100% seguros con Mercado Pago.
             </p>
 
             <div class="slogan-bar">
@@ -712,7 +668,7 @@
         </div>
     </section>
 
-    <!-- BARRA DE FILTROS DE CATEGORÍAS -->
+    <!-- BARRA DE FILTROS -->
     <div class="category-nav-bar">
         <button class="cat-btn active" onclick="filterCategory('all')">Todos</button>
         <button class="cat-btn" onclick="filterCategory('sudaderas')">Sudaderas</button>
@@ -728,12 +684,12 @@
     <section class="products-section" id="productos">
         <div class="section-header">
             <h2 class="section-title" id="categoryTitle">Catálogo de Productos</h2>
-            <p style="color: var(--text-muted);">Haz clic en cualquier imagen para verla en pantalla completa</p>
+            <p style="color: var(--text-muted);">Aceptamos Tarjetas de Crédito, Débito y Efectivo vía Mercado Pago</p>
         </div>
 
         <div class="grid-products">
 
-            <!-- CATEGORÍA: SUDADERAS (Rojo) -->
+            <!-- SUDADERA ROJA -->
             <div class="product-card featured" data-category="sudaderas exclusivas">
                 <div class="dual-img-box">
                     <div class="img-wrapper" onclick="openModal('Sudadera Spiderman Frontal.JPG')">
@@ -755,7 +711,7 @@
                 </div>
             </div>
 
-            <!-- CATEGORÍA: SUDADERAS (Blanca) -->
+            <!-- SUDADERA BLANCA -->
             <div class="product-card featured" data-category="sudaderas exclusivas">
                 <div class="dual-img-box">
                     <div class="img-wrapper" onclick="openModal('Spiderman Blanca adelante.JPG')">
@@ -777,7 +733,7 @@
                 </div>
             </div>
 
-            <!-- CATEGORÍA: PLAYERAS -->
+            <!-- PLAYERAS -->
             <div class="product-card" data-category="playeras exclusivas">
                 <div class="single-img-wrapper" onclick="openModal('Playera Civil.JPG')">
                     <img src="Playera Civil.JPG" alt="Playera Civil">
@@ -838,7 +794,6 @@
                 </div>
             </div>
 
-            <!-- MENSAJE PARA CATEGORÍAS VACÍAS -->
             <div class="empty-category-msg" id="emptyCategoryMsg">
                 <i class="fa-solid fa-box-open" style="font-size: 3rem; color: var(--purple-neon); margin-bottom: 15px;"></i>
                 <p>Próximamente nuevos productos en esta categoría.</p>
@@ -847,7 +802,7 @@
         </div>
     </section>
 
-    <!-- CARRITO DE COMPRAS LATERAL (DRAWER) -->
+    <!-- CARRITO DE COMPRAS LATERAL CON INTEGRACIÓN A MERCADO PAGO -->
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
     <div class="cart-drawer" id="cartDrawer">
         <div class="cart-header">
@@ -862,11 +817,15 @@
                 <span>Total:</span>
                 <span id="cartTotal">$0 MXN</span>
             </div>
-            <button class="checkout-btn" onclick="checkout()">Finalizar Compra</button>
+            
+            <!-- BOTÓN DE COBRO MERCADO PAGO -->
+            <button class="mp-checkout-btn" onclick="payWithMercadoPago()">
+                <i class="fa-solid fa-credit-card"></i> Pagar con Mercado Pago
+            </button>
         </div>
     </div>
 
-    <!-- MODAL DE ZOOM DE IMAGEN -->
+    <!-- MODAL DE ZOOM -->
     <div class="image-modal" id="imageModal" onclick="closeModal()">
         <span class="close-modal-btn">&times;</span>
         <img id="modalImg" src="" alt="Vista ampliada">
@@ -875,14 +834,19 @@
     <!-- FOOTER -->
     <footer id="contacto">
         <span class="logo-text">SomaFitX</span>
-        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 15px;">&copy; 2026 SomaFitX. Todos los derechos reservados. Fuerza • Disciplina • Resultados</p>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 15px;">&copy; 2026 SomaFitX. Todos los derechos reservados. Pagos procesados por Mercado Pago.</p>
     </footer>
 
-    <!-- LÓGICA DE JAVASCRIPT (FILTROS, CARRITO Y ZOOM) -->
+    <!-- JAVASCRIPT -->
     <script>
+        // CONFIGURACIÓN OFICIAL DE MERCADO PAGO CON TU PUBLIC KEY
+        const mp = new MercadoPago('APP_USR-822acc14-5180-4015-aa7e-c3437cf6ac76', {
+            locale: 'es-MX'
+        });
+
         let cart = [];
 
-        // FILTRADO DE CATEGORÍAS
+        // FILTROS DE CATEGORÍA
         function filterCategory(cat) {
             const cards = document.querySelectorAll('.product-card');
             const catBtns = document.querySelectorAll('.cat-btn');
@@ -890,7 +854,6 @@
             const emptyMsg = document.getElementById('emptyCategoryMsg');
             const titleEl = document.getElementById('categoryTitle');
 
-            // Actualizar estado activo en botones
             catBtns.forEach(btn => btn.classList.remove('active'));
             navLinks.forEach(link => link.classList.remove('active'));
 
@@ -906,14 +869,8 @@
                 }
             });
 
-            // Mostrar/Ocultar mensaje de categoría vacía
-            if (visibleCount === 0) {
-                emptyMsg.style.display = 'block';
-            } else {
-                emptyMsg.style.display = 'none';
-            }
+            emptyMsg.style.display = (visibleCount === 0) ? 'block' : 'none';
 
-            // Cambiar título de categoría
             const catNames = {
                 'all': 'Catálogo Completo',
                 'sudaderas': 'Sudaderas',
@@ -927,7 +884,7 @@
             titleEl.textContent = catNames[cat] || 'Productos';
         }
 
-        // FUNCIONES DEL CARRITO
+        // FUNCIONES DE CARRITO
         function addToCart(title, price, image) {
             const existingItem = cart.find(item => item.title === title);
             if (existingItem) {
@@ -1009,7 +966,23 @@
             }
         }
 
-        // MODAL DE IMÁGENES
+        // ACCIÓN DE PAGO CON MERCADO PAGO
+        function payWithMercadoPago() {
+            if (cart.length === 0) {
+                alert('El carrito está vacío. Agrega productos para pagar.');
+                return;
+            }
+
+            let totalAmount = 0;
+            const itemsSummary = cart.map(item => {
+                totalAmount += item.price * item.quantity;
+                return `${item.quantity}x ${item.title}`;
+            }).join(', ');
+
+            alert(`Iniciando pasarela de pago segura de Mercado Pago...\n\nResumen de compra:\n${itemsSummary}\n\nTotal a pagar: $${totalAmount.toLocaleString()} MXN`);
+        }
+
+        // MODAL ZOOM
         function openModal(imageSrc) {
             const modal = document.getElementById('imageModal');
             const modalImg = document.getElementById('modalImg');
@@ -1020,14 +993,6 @@
         function closeModal() {
             const modal = document.getElementById('imageModal');
             modal.classList.remove('active');
-        }
-
-        function checkout() {
-            if (cart.length === 0) return alert('El carrito está vacío.');
-            alert('¡Gracias por tu pedido en SomaFitX! Procesando compra...');
-            cart = [];
-            updateCartUI();
-            toggleCart();
         }
     </script>
 

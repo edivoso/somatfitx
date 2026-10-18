@@ -33,7 +33,7 @@
             overflow-x: hidden;
         }
 
-        /* HEADER & NAVBAR */
+        /* NAVBAR */
         header {
             position: fixed;
             top: 0;
@@ -99,25 +99,30 @@
             background: none;
             border: none;
             color: var(--text-light);
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .cart-icon-btn:hover {
+            color: var(--blue-neon);
         }
 
         .cart-count {
             position: absolute;
             top: -8px;
             right: -10px;
-            background: var(--purple-neon);
+            background: var(--red-neon);
             color: white;
             font-size: 0.75rem;
             font-weight: bold;
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 8px var(--purple-neon);
+            box-shadow: 0 0 10px var(--red-glow);
         }
 
         /* HERO SECTION */
@@ -128,7 +133,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 40px;
-            min-height: 80vh;
+            min-height: 75vh;
             background: radial-gradient(circle at 20% 50%, rgba(160, 0, 255, 0.15), transparent 50%),
                         radial-gradient(circle at 80% 50%, rgba(0, 229, 255, 0.15), transparent 50%);
         }
@@ -209,7 +214,7 @@
 
         .main-logo-hero {
             max-width: 100%;
-            max-height: 480px;
+            max-height: 450px;
             border-radius: 20px;
             box-shadow: 0 0 35px var(--purple-glow), 0 0 35px var(--blue-glow);
             border: 2px solid rgba(0, 229, 255, 0.3);
@@ -218,7 +223,7 @@
         /* PRODUCTS SECTION */
         .products-section {
             padding: 50px 5% 80px 5%;
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
         }
 
@@ -234,121 +239,306 @@
             letter-spacing: 2px;
         }
 
-        /* TARJETA DE PRODUCTO ÚNICO */
-        .single-product-container {
-            display: flex;
-            justify-content: center;
+        .grid-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
         }
 
         .product-card {
             background: var(--bg-card);
-            border: 1px solid var(--red-neon);
+            border: 1px solid var(--border-glow);
             border-radius: 16px;
-            padding: 30px;
-            max-width: 900px;
-            width: 100%;
-            box-shadow: 0 0 30px var(--red-glow);
-            background: linear-gradient(180deg, rgba(255, 23, 68, 0.08) 0%, var(--bg-card) 100%);
+            padding: 20px;
+            transition: 0.3s;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            justify-content: space-between;
+            position: relative;
         }
 
-        /* DUAL IMAGE CONTAINER WITH HOVER / ZOOM EFFECTS */
+        .product-card:hover {
+            border-color: var(--blue-neon);
+            box-shadow: 0 0 20px var(--blue-glow);
+            transform: translateY(-5px);
+        }
+
+        .product-card.featured {
+            border-color: var(--red-neon);
+            box-shadow: 0 0 25px var(--red-glow);
+            background: linear-gradient(180deg, rgba(255, 23, 68, 0.08) 0%, var(--bg-card) 100%);
+        }
+
+        /* IMÁGENES Y ZOOM */
+        .single-img-wrapper, .dual-img-box {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         .dual-img-box {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 10px;
         }
 
         .img-wrapper {
             position: relative;
             overflow: hidden;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 23, 68, 0.4);
+            border-radius: 8px;
             cursor: pointer;
-            background: #000;
         }
 
-        .img-wrapper img {
+        .img-wrapper img, .single-img-wrapper img {
             width: 100%;
-            height: 420px;
+            height: 320px;
             object-fit: cover;
             display: block;
             transition: transform 0.4s ease;
         }
 
-        .img-wrapper:hover img {
-            transform: scale(1.1);
+        .dual-img-box .img-wrapper img {
+            height: 240px;
         }
 
-        .img-wrapper .zoom-hint {
+        .img-wrapper:hover img, .single-img-wrapper:hover img {
+            transform: scale(1.08);
+        }
+
+        .zoom-hint {
             position: absolute;
-            bottom: 12px;
-            right: 12px;
-            background: rgba(0, 0, 0, 0.7);
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.75);
             color: #fff;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.7rem;
             font-weight: 700;
-            letter-spacing: 1px;
             pointer-events: none;
-            border: 1px solid var(--red-neon);
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            border: 1px solid var(--blue-neon);
         }
 
         .product-info-details {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .product-cat {
-            font-size: 0.85rem;
-            color: var(--red-neon);
+            font-size: 0.75rem;
+            color: var(--blue-neon);
             text-transform: uppercase;
             font-weight: 800;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
         }
 
         .product-title {
-            font-size: 1.8rem;
-            font-weight: 900;
+            font-size: 1.2rem;
+            font-weight: 800;
         }
 
         .product-price {
-            font-size: 2.2rem;
+            font-size: 1.5rem;
             font-weight: 900;
+            color: var(--blue-neon);
+        }
+
+        .product-price.red {
             color: var(--red-neon);
-            text-shadow: 0 0 15px var(--red-glow);
+            text-shadow: 0 0 10px var(--red-glow);
         }
 
         .add-to-cart-btn {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             border: none;
-            background: linear-gradient(135deg, #FF1744, #B71C1C);
+            background: linear-gradient(135deg, var(--purple-neon), var(--blue-neon));
             color: #fff;
-            font-weight: 900;
+            font-weight: 800;
             border-radius: 8px;
             cursor: pointer;
             transition: 0.3s;
             text-transform: uppercase;
-            font-size: 1rem;
+            font-size: 0.9rem;
             letter-spacing: 1px;
-            box-shadow: 0 0 20px var(--red-glow);
             margin-top: 10px;
+        }
+
+        .add-to-cart-btn.red-btn {
+            background: linear-gradient(135deg, #FF1744, #B71C1C);
+            box-shadow: 0 0 15px var(--red-glow);
         }
 
         .add-to-cart-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(255, 23, 68, 0.8);
+            filter: brightness(1.2);
         }
 
-        /* MODAL PARA VER IMAGEN EN GRANDE */
+        /* CARRITO LATERAL (DRAWER) */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1500;
+            display: none;
+        }
+
+        .cart-overlay.active {
+            display: block;
+        }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: -420px;
+            width: 400px;
+            max-width: 90%;
+            height: 100%;
+            background: var(--bg-card);
+            border-left: 1px solid var(--purple-neon);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8);
+            z-index: 1600;
+            transition: right 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .cart-drawer.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .cart-header h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+        }
+
+        .close-cart-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        .cart-items-list {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            align-items: center;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .cart-item-price {
+            font-size: 0.85rem;
+            color: var(--blue-neon);
+            font-weight: 800;
+        }
+
+        .cart-item-qty {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .qty-btn {
+            background: #1A162B;
+            border: 1px solid var(--blue-neon);
+            color: #fff;
+            width: 22px;
+            height: 22px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .remove-item-btn {
+            color: var(--red-neon);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 5px;
+        }
+
+        .cart-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 15px;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--blue-neon), var(--purple-neon));
+            border: none;
+            color: #fff;
+            font-weight: 900;
+            border-radius: 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .checkout-btn:hover {
+            box-shadow: 0 0 20px var(--blue-glow);
+        }
+
+        /* MODAL DE ZOOM */
         .image-modal {
             display: none;
             position: fixed;
@@ -371,8 +561,8 @@
             max-width: 90%;
             max-height: 90vh;
             border-radius: 12px;
-            border: 2px solid var(--red-neon);
-            box-shadow: 0 0 40px var(--red-glow);
+            border: 2px solid var(--blue-neon);
+            box-shadow: 0 0 40px var(--blue-glow);
             object-fit: contain;
         }
 
@@ -383,11 +573,6 @@
             color: #fff;
             font-size: 2.5rem;
             cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .close-modal-btn:hover {
-            color: var(--red-neon);
         }
 
         /* FOOTER */
@@ -414,9 +599,6 @@
             .dual-img-box {
                 grid-template-columns: 1fr;
             }
-            .img-wrapper img {
-                height: 350px;
-            }
         }
     </style>
 </head>
@@ -431,14 +613,14 @@
         <nav>
             <ul>
                 <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#producto">Exclusivo</a></li>
+                <li><a href="#productos">Productos</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
         <div class="nav-icons">
-            <button class="cart-icon-btn">
+            <button class="cart-icon-btn" onclick="toggleCart()">
                 <i class="fa-solid fa-cart-shopping"></i>
-                <span class="cart-count">0</span>
+                <span class="cart-count" id="cartCount">0</span>
             </button>
         </div>
     </header>
@@ -446,17 +628,17 @@
     <!-- HERO SECTION -->
     <section class="hero" id="inicio">
         <div class="hero-content">
-            <span class="hero-tag">EDICIÓN LIMITADA</span>
+            <span class="hero-tag">NUEVA COLECCIÓN</span>
             <h1 class="hero-title">Evoluciona tu <span class="purple">Fuerza</span> & <span class="blue">Estilo</span></h1>
             <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; margin-bottom: 25px;">
-                Presentando la prenda insignia de la temporada: Civil Regime X Spider-Man. Estilo streetwear de alto rendimiento.
+                Prendas de compresión y edición limitada Civil Regime X Spider-Man.
             </p>
 
             <div class="slogan-bar">
                 <span>FUERZA</span> • <span>DISCIPLINA</span> • <span>RESULTADOS</span>
             </div>
 
-            <a href="#producto" class="btn-primary">Ver Producto</a>
+            <a href="#productos" class="btn-primary">Ver Catálogo</a>
         </div>
 
         <div class="hero-image-container">
@@ -465,67 +647,131 @@
     </section>
 
     <!-- PRODUCTOS -->
-    <section class="products-section" id="producto">
+    <section class="products-section" id="productos">
         <div class="section-header">
-            <h2 class="section-title">Lanzamiento Exclusivo</h2>
-            <p style="color: var(--text-muted);">Pasa el cursor o haz clic en las imágenes para verlas en grande</p>
+            <h2 class="section-title">Colección Exclusiva</h2>
+            <p style="color: var(--text-muted);">Haz clic en cualquier imagen para verla en tamaño completo</p>
         </div>
 
-        <div class="single-product-container">
-            <div class="product-card">
-                
-                <!-- DUAL IMAGE CONTAINER (FRONT & BACK) WITH ZOOM -->
+        <div class="grid-products">
+
+            <!-- PRODUCTO 1: SUDADERA SPIDERMAN (FRENTE Y VUELTA) -->
+            <div class="product-card featured">
                 <div class="dual-img-box">
                     <div class="img-wrapper" onclick="openModal('Sudadera Spiderman Frontal.JPG')">
-                        <img src="Sudadera Spiderman Frontal.JPG" alt="Sudadera Spiderman Vista Frontal">
-                        <div class="zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> Ampliar Vista</div>
+                        <img src="Sudadera Spiderman Frontal.JPG" alt="Sudadera Frontal">
+                        <div class="zoom-hint"><i class="fa-solid fa-magnifying-glass"></i> Ver</div>
                     </div>
                     <div class="img-wrapper" onclick="openModal('Sudadera Spiderman atras.JPG')">
-                        <img src="Sudadera Spiderman atras.JPG" alt="Sudadera Spiderman Vista Trasera">
-                        <div class="zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> Ampliar Vista</div>
+                        <img src="Sudadera Spiderman atras.JPG" alt="Sudadera Atrás">
+                        <div class="zoom-hint"><i class="fa-solid fa-magnifying-glass"></i> Ver</div>
                     </div>
                 </div>
-
                 <div class="product-info-details">
-                    <span class="product-cat">Colección Civil Regime X Spider-Man</span>
-                    <h3 class="product-title">Sudadera Full Zip Civil Regime Spider-Man</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5;">
-                        Sudadera de corte exclusivo con bordados y estampados de alta densidad en tono rojo vivo y negro. Incluye detalles con zipper de máscara y acabados premium.
-                    </p>
-                    <div class="product-price">$3,599 MXN</div>
-                    <button class="add-to-cart-btn">Agregar al Carrito</button>
+                    <span class="product-cat" style="color: var(--red-neon);">Edición Especial Full Zip</span>
+                    <h3 class="product-title">Sudadera Civil Regime Spider-Man (Combo Frente & Vuelta)</h3>
+                    <div class="product-price red">$3,599 MXN</div>
+                    <button class="add-to-cart-btn red-btn" onclick="addToCart('Sudadera Civil Regime Spider-Man (Combo)', 3599, 'Sudadera Spiderman Frontal.JPG')">
+                        <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
+                    </button>
                 </div>
-
             </div>
+
+            <!-- PRODUCTO 2: PLAYERA SPIDERMAN BLANCA (FRENTE Y VUELTA) -->
+            <div class="product-card featured">
+                <div class="dual-img-box">
+                    <div class="img-wrapper" onclick="openModal('Spiderman Blanca adelante.JPG')">
+                        <img src="Spiderman Blanca adelante.JPG" alt="Playera Blanca Adelante">
+                        <div class="zoom-hint"><i class="fa-solid fa-magnifying-glass"></i> Ver</div>
+                    </div>
+                    <div class="img-wrapper" onclick="openModal('Spiderman Blanca Atras.JPG')">
+                        <img src="Spiderman Blanca Atras.JPG" alt="Playera Blanca Atrás">
+                        <div class="zoom-hint"><i class="fa-solid fa-magnifying-glass"></i> Ver</div>
+                    </div>
+                </div>
+                <div class="product-info-details">
+                    <span class="product-cat" style="color: var(--red-neon);">Combo Exclusivo Blanco</span>
+                    <h3 class="product-title">Playera Spiderman Blanca (Frente & Atrás)</h3>
+                    <div class="product-price red">$3,599 MXN</div>
+                    <button class="add-to-cart-btn red-btn" onclick="addToCart('Playera Spiderman Blanca (Frente & Atrás)', 3599, 'Spiderman Blanca adelante.JPG')">
+                        <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
+                    </button>
+                </div>
+            </div>
+
+            <!-- PRODUCTO 3: PLAYERA CIVIL -->
+            <div class="product-card">
+                <div class="single-img-wrapper" onclick="openModal('Playera Civil.JPG')">
+                    <img src="Playera Civil.JPG" alt="Playera Civil">
+                    <div class="zoom-hint"><i class="fa-solid fa-magnifying-glass"></i> Ver</div>
+                </div>
+                <div class="product-info-details">
+                    <span class="product-cat">Civil Regime</span>
+                    <h3 class="product-title">Playera Civil</h3>
+                    <div class="product-price">$1,599 MXN</div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Playera Civil', 1599, 'Playera Civil.JPG')">
+                        <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
+                    </button>
+                </div>
+            </div>
+
+            <!-- PRODUCTO 4: PLAYERA SPIDERMAN GORRO -->
+            <div class="product-card">
+                <div class="single-img-wrapper" onclick="openModal('Playera Spiderman Gorro.JPG')">
+                    <img src="Playera Spiderman Gorro.JPG" alt="Playera Spiderman Gorro">
+                    <div class="zoom-hint"><i class="fa-solid fa-magnifying-glass"></i> Ver</div>
+                </div>
+                <div class="product-info-details">
+                    <span class="product-cat">Colección Spider-Man</span>
+                    <h3 class="product-title">Playera Spiderman Gorro</h3>
+                    <div class="product-price">$1,599 MXN</div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Playera Spiderman Gorro', 1599, 'Playera Spiderman Gorro.JPG')">
+                        <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
+                    </button>
+                </div>
+            </div>
+
+            <!-- PRODUCTO 5: PLAYERA SPIDERMAN MOCHILA -->
+            <div class="product-card">
+                <div class="single-img-wrapper" onclick="openModal('Playera Spiderman Mochila.JPG')">
+                    <img src="Playera Spiderman Mochila.JPG" alt="Playera Spiderman Mochila">
+                    <div class="zoom-hint"><i class="fa-solid fa-magnifying-glass"></i> Ver</div>
+                </div>
+                <div class="product-info-details">
+                    <span class="product-cat">Colección Spider-Man</span>
+                    <h3 class="product-title">Playera Spiderman Mochila</h3>
+                    <div class="product-price">$1,599 MXN</div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Playera Spiderman Mochila', 1599, 'Playera Spiderman Mochila.JPG')">
+                        <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
+                    </button>
+                </div>
+            </div>
+
+            <!-- PRODUCTO 6: PLAYERA SPIDERMAN SOLO -->
+            <div class="product-card">
+                <div class="single-img-wrapper" onclick="openModal('Playera Spiderman.JPG')">
+                    <img src="Playera Spiderman.JPG" alt="Playera Spiderman">
+                    <div class="zoom-hint"><i class="fa-solid fa-magnifying-glass"></i> Ver</div>
+                </div>
+                <div class="product-info-details">
+                    <span class="product-cat">Colección Spider-Man</span>
+                    <h3 class="product-title">Playera Spiderman</h3>
+                    <div class="product-price">$1,599 MXN</div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Playera Spiderman', 1599, 'Playera Spiderman.JPG')">
+                        <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
+                    </button>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- MODAL PARA VER IMAGEN AMPLIA -->
-    <div class="image-modal" id="imageModal" onclick="closeModal()">
-        <span class="close-modal-btn">&times;</span>
-        <img id="modalImg" src="" alt="Vista ampliada">
-    </div>
-
-    <!-- FOOTER -->
-    <footer id="contacto">
-        <span class="logo-text">SomaFitX</span>
-        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 15px;">&copy; 2026 SomaFitX. Todos los derechos reservados. Fuerza • Disciplina • Resultados</p>
-    </footer>
-
-    <!-- JAVASCRIPT PARA EL MODAL DE ZOOM -->
-    <script>
-        function openModal(imageSrc) {
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImg');
-            modalImg.src = imageSrc;
-            modal.classList.add('active');
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('imageModal');
-            modal.classList.remove('active');
-        }
-    </script>
-
-</body>
-</html>
+    <!-- CARRITO DE COMPRAS LATERAL (DRAWER) -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3><i class="fa-solid fa-bag-shopping"></i> Tu Carrito</h3>
+            <button class="close-cart-btn" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items-list" id="cartItemsContainer">
+            <p style="text-align: center; color: var(--text-muted); margin-top: 30px;">Tu carrito

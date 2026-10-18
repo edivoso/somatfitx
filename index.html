@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SomaFitX | Suplementos & Ropa Deportiva</title>
+    <title>SomaFitX | Colección Exclusiva</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -128,7 +128,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 40px;
-            min-height: 85vh;
+            min-height: 80vh;
             background: radial-gradient(circle at 20% 50%, rgba(160, 0, 255, 0.15), transparent 50%),
                         radial-gradient(circle at 80% 50%, rgba(0, 229, 255, 0.15), transparent 50%);
         }
@@ -209,7 +209,7 @@
 
         .main-logo-hero {
             max-width: 100%;
-            max-height: 500px;
+            max-height: 480px;
             border-radius: 20px;
             box-shadow: 0 0 35px var(--purple-glow), 0 0 35px var(--blue-glow);
             border: 2px solid rgba(0, 229, 255, 0.3);
@@ -217,12 +217,14 @@
 
         /* PRODUCTS SECTION */
         .products-section {
-            padding: 70px 5%;
+            padding: 50px 5% 80px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
         .section-title {
@@ -232,135 +234,160 @@
             letter-spacing: 2px;
         }
 
-        .grid-products {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+        /* TARJETA DE PRODUCTO ÚNICO */
+        .single-product-container {
+            display: flex;
+            justify-content: center;
         }
 
         .product-card {
             background: var(--bg-card);
-            border: 1px solid var(--border-glow);
-            border-radius: 12px;
-            padding: 20px;
-            transition: 0.3s;
-            position: relative;
+            border: 1px solid var(--red-neon);
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 0 30px var(--red-glow);
+            background: linear-gradient(180deg, rgba(255, 23, 68, 0.08) 0%, var(--bg-card) 100%);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            gap: 20px;
         }
 
-        .product-card.featured {
-            border-color: var(--red-neon);
-            box-shadow: 0 0 25px var(--red-glow);
-            background: linear-gradient(180deg, rgba(255, 23, 68, 0.08) 0%, var(--bg-card) 100%);
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .badge-combo {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--red-neon);
-            color: #fff;
-            font-size: 0.75rem;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 4px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            box-shadow: 0 0 10px var(--red-glow);
-            z-index: 10;
-        }
-
+        /* DUAL IMAGE CONTAINER WITH HOVER / ZOOM EFFECTS */
         .dual-img-box {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 15px;
+            gap: 20px;
         }
 
-        .dual-img-box img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 8px;
+        .img-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 23, 68, 0.4);
+            cursor: pointer;
             background: #000;
-            border: 1px solid rgba(255, 23, 68, 0.3);
-            transition: 0.3s;
         }
 
-        .dual-img-box img:hover {
-            border-color: var(--red-neon);
-            transform: scale(1.03);
-        }
-
-        .product-img-single {
+        .img-wrapper img {
             width: 100%;
-            height: 220px;
+            height: 420px;
             object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            background: #151226;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .img-wrapper:hover img {
+            transform: scale(1.1);
+        }
+
+        .img-wrapper .zoom-hint {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            pointer-events: none;
+            border: 1px solid var(--red-neon);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .product-info-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .product-cat {
-            font-size: 0.75rem;
-            color: var(--purple-neon);
+            font-size: 0.85rem;
+            color: var(--red-neon);
             text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 1px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
         }
 
         .product-title {
-            font-size: 1.15rem;
-            font-weight: 800;
-            margin: 6px 0 10px 0;
+            font-size: 1.8rem;
+            font-weight: 900;
         }
 
         .product-price {
-            font-size: 1.4rem;
+            font-size: 2.2rem;
             font-weight: 900;
-            color: var(--blue-neon);
-            margin-bottom: 15px;
-        }
-
-        .product-price.red {
             color: var(--red-neon);
-            text-shadow: 0 0 10px var(--red-glow);
+            text-shadow: 0 0 15px var(--red-glow);
         }
 
         .add-to-cart-btn {
             width: 100%;
-            padding: 12px;
-            background: transparent;
-            border: 1px solid var(--purple-neon);
-            color: var(--text-light);
-            font-weight: 700;
-            border-radius: 6px;
+            padding: 16px;
+            border: none;
+            background: linear-gradient(135deg, #FF1744, #B71C1C);
+            color: #fff;
+            font-weight: 900;
+            border-radius: 8px;
             cursor: pointer;
             transition: 0.3s;
             text-transform: uppercase;
-            font-size: 0.85rem;
-        }
-
-        .add-to-cart-btn.red-btn {
-            border-color: var(--red-neon);
-            background: rgba(255, 23, 68, 0.15);
-        }
-
-        .add-to-cart-btn.red-btn:hover {
-            background: var(--red-neon);
+            font-size: 1rem;
+            letter-spacing: 1px;
             box-shadow: 0 0 20px var(--red-glow);
-            color: #fff;
+            margin-top: 10px;
         }
 
         .add-to-cart-btn:hover {
-            background: var(--purple-neon);
-            box-shadow: 0 0 15px var(--purple-glow);
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(255, 23, 68, 0.8);
+        }
+
+        /* MODAL PARA VER IMAGEN EN GRANDE */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-modal.active {
+            display: flex;
+        }
+
+        .image-modal img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 12px;
+            border: 2px solid var(--red-neon);
+            box-shadow: 0 0 40px var(--red-glow);
+            object-fit: contain;
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            color: #fff;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-modal-btn:hover {
+            color: var(--red-neon);
         }
 
         /* FOOTER */
@@ -384,6 +411,12 @@
                 border-left: none;
                 padding-left: 0;
             }
+            .dual-img-box {
+                grid-template-columns: 1fr;
+            }
+            .img-wrapper img {
+                height: 350px;
+            }
         }
     </style>
 </head>
@@ -392,13 +425,13 @@
     <!-- NAVBAR -->
     <header>
         <a href="#" class="logo-container">
-            <img src="logo.jpg" alt="SomaFitX Logo" class="logo-img" onerror="this.style.display='none'">
+            <img src="LOGO-SOMAFITX.jpeg" alt="SomaFitX Logo" class="logo-img" onerror="this.style.display='none'">
             <span class="logo-text">SomaFitX</span>
         </a>
         <nav>
             <ul>
                 <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#productos">Catálogo</a></li>
+                <li><a href="#producto">Exclusivo</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
         </nav>
@@ -413,81 +446,86 @@
     <!-- HERO SECTION -->
     <section class="hero" id="inicio">
         <div class="hero-content">
-            <span class="hero-tag">EDICIÓN ESPECIAL & EXCLUSIVA</span>
+            <span class="hero-tag">EDICIÓN LIMITADA</span>
             <h1 class="hero-title">Evoluciona tu <span class="purple">Fuerza</span> & <span class="blue">Estilo</span></h1>
             <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; margin-bottom: 25px;">
-                Descubre nuestra ropa de compresión, sudaderas exclusivas y suplementos premium diseñados para el máximo rendimiento.
+                Presentando la prenda insignia de la temporada: Civil Regime X Spider-Man. Estilo streetwear de alto rendimiento.
             </p>
 
             <div class="slogan-bar">
                 <span>FUERZA</span> • <span>DISCIPLINA</span> • <span>RESULTADOS</span>
             </div>
 
-            <a href="#productos" class="btn-primary">Ver Catálogo</a>
+            <a href="#producto" class="btn-primary">Ver Producto</a>
         </div>
 
         <div class="hero-image-container">
-            <img src="logo.jpg" alt="SomaFitX Emblem" class="main-logo-hero" onerror="this.src='https://via.placeholder.com/500x500/0F0D1B/00E5FF?text=SomaFitX+Logo'">
+            <img src="LOGO-SOMAFITX.jpeg" alt="SomaFitX Logo" class="main-logo-hero" onerror="this.src='https://via.placeholder.com/500x500/0F0D1B/00E5FF?text=SomaFitX'">
         </div>
     </section>
 
     <!-- PRODUCTOS -->
-    <section class="products-section" id="productos">
+    <section class="products-section" id="producto">
         <div class="section-header">
-            <h2 class="section-title">Productos Destacados</h2>
-            <p style="color: var(--text-muted);">Colección oficial y lanzamientos limitados</p>
+            <h2 class="section-title">Lanzamiento Exclusivo</h2>
+            <p style="color: var(--text-muted);">Pasa el cursor o haz clic en las imágenes para verlas en grande</p>
         </div>
 
-        <div class="grid-products">
-
-            <!-- PRODUCTO 1: COMBO HOODIE SPIDERMAN CIVIL REGIME -->
-            <div class="product-card featured">
-                <span class="badge-combo">COMBO EXCLUSIVO</span>
+        <div class="single-product-container">
+            <div class="product-card">
+                
+                <!-- DUAL IMAGE CONTAINER (FRONT & BACK) WITH ZOOM -->
                 <div class="dual-img-box">
-                    <img src="Sudadera Spiderman Frontal.JPG" alt="Sudadera Spiderman Frente" title="Vista Frontal">
-                    <img src="Sudadera Spiderman atras.JPG" alt="Sudadera Spiderman Atrás" title="Vista Trasera">
+                    <div class="img-wrapper" onclick="openModal('Sudadera Spiderman Frontal.JPG')">
+                        <img src="Sudadera Spiderman Frontal.JPG" alt="Sudadera Spiderman Vista Frontal">
+                        <div class="zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> Ampliar Vista</div>
+                    </div>
+                    <div class="img-wrapper" onclick="openModal('Sudadera Spiderman atras.JPG')">
+                        <img src="Sudadera Spiderman atras.JPG" alt="Sudadera Spiderman Vista Trasera">
+                        <div class="zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> Ampliar Vista</div>
+                    </div>
                 </div>
-                <span class="product-cat" style="color: var(--red-neon);">Colección Civil Regime X Spider-Man</span>
-                <h3 class="product-title">Sudadera Full Zip Civil Regime Spider-Man (Combo Frente & Vuelta)</h3>
-                <div class="product-price red">$3,599 MXN</div>
-                <button class="add-to-cart-btn red-btn">Agregar al Carrito</button>
-            </div>
 
-            <!-- PRODUCTO 2 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=400" class="product-img-single" alt="Playera Oversize">
-                <span class="product-cat">Ropa Deportiva</span>
-                <h3 class="product-title">Playera Oversize SomaFitX Neon</h3>
-                <div class="product-price">$450 MXN</div>
-                <button class="add-to-cart-btn">Agregar al Carrito</button>
-            </div>
+                <div class="product-info-details">
+                    <span class="product-cat">Colección Civil Regime X Spider-Man</span>
+                    <h3 class="product-title">Sudadera Full Zip Civil Regime Spider-Man</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5;">
+                        Sudadera de corte exclusivo con bordados y estampados de alta densidad en tono rojo vivo y negro. Incluye detalles con zipper de máscara y acabados premium.
+                    </p>
+                    <div class="product-price">$3,599 MXN</div>
+                    <button class="add-to-cart-btn">Agregar al Carrito</button>
+                </div>
 
-            <!-- PRODUCTO 3 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?w=400" class="product-img-single" alt="Proteína Whey">
-                <span class="product-cat">Suplementos</span>
-                <h3 class="product-title">Proteína Whey Isolate 5Lbs</h3>
-                <div class="product-price">$1,299 MXN</div>
-                <button class="add-to-cart-btn">Agregar al Carrito</button>
             </div>
-
-            <!-- PRODUCTO 4 -->
-            <div class="product-card">
-                <img src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?w=400" class="product-img-single" alt="Shaker">
-                <span class="product-cat">Accesorios</span>
-                <h3 class="product-title">Shaker Edición Metal SomaFitX</h3>
-                <div class="product-price">$250 MXN</div>
-                <button class="add-to-cart-btn">Agregar al Carrito</button>
-            </div>
-
         </div>
     </section>
+
+    <!-- MODAL PARA VER IMAGEN AMPLIA -->
+    <div class="image-modal" id="imageModal" onclick="closeModal()">
+        <span class="close-modal-btn">&times;</span>
+        <img id="modalImg" src="" alt="Vista ampliada">
+    </div>
 
     <!-- FOOTER -->
     <footer id="contacto">
         <span class="logo-text">SomaFitX</span>
         <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 15px;">&copy; 2026 SomaFitX. Todos los derechos reservados. Fuerza • Disciplina • Resultados</p>
     </footer>
+
+    <!-- JAVASCRIPT PARA EL MODAL DE ZOOM -->
+    <script>
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImg');
+            modalImg.src = imageSrc;
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+        }
+    </script>
 
 </body>
 </html>
